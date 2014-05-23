@@ -1,0 +1,41 @@
+{
+  "name": "message-exchange",
+  "version": "0.0.1",
+  "description": "integrates redis as a queue and a pubsub by providing an easy mechanism for publishing and handling messages",
+  "main": "index.js",
+  "scripts": {
+    "test": "grunt"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:nathangromano/message-exchange.git"
+  },
+  "keywords": [
+    "redis",
+    "queue",
+    "exchange",
+    "publish",
+    "subscribe",
+    "event",
+    "driven",
+    "consumer",
+    "producer"
+  ],
+  "author": "Nathan G. Romano <nathan.g.romano@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nathangromano/message-exchange/issues"
+  },
+  "homepage": "https://github.com/nathangromano/message-exchange",
+  "devDependencies": {
+    "grunt-jasmine-bundle": "^0.2.0",
+    "grunt-cli": "^0.1.13",
+    "grunt": "^0.4.5",
+    "coffee-script": "^1.7.1"
+  },
+  "dependencies": {
+    "redis": "^0.10.3",
+    "kue": "^0.7.7",
+    "hiredis": "^0.1.16"
+  }
+}
