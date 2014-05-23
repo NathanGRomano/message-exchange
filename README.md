@@ -19,6 +19,51 @@ cd into the app directory and install the dependencies
 
 Here is how to create a simple application to handle an event and broadcast it back out.
 
+First we get an exchage instance
+
+```javascript
+
+var exchange = require('message-exchange).make();
+
+```
+
+Lets initialize a model and setup a handler for a "quit" event
+
+```javascript
+
+var employeeModel = {hired: new Date()}:
+
+exchange.handler.on('quit', function (event) {
+
+  // handle the event
+  employeeModel.quit = event.created;
+
+  // let Human Resources know the employee quit 
+  exchange.channel('human resources').publish(event);
+
+});
+
+```
+
+When we handle a "quit" event we broadcast the messaage to the "human resources" channel.  So let add a listener on that channel so we can relay the information to say a socket.
+
+```javascript
+
+//presume we have declared sockets elsewhere
+
+exchange.channel('human resources').on('message', function (event) {
+  sockets.emit('message', event);
+});
+
+```
+
+Now lets publish a "quit" event the message queue.  It will be handled by our handler and then broadcast on our channel and finally broadcast to our sockets.
+
+```javascript
+
+exchange.publish({actor:'employee', target:'job', action:'quit', created:new Date(), content:'work performed'});
+
+```
 
 # Running Tests
 
