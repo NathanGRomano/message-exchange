@@ -16,6 +16,7 @@ Clone this repository
     > git clone git@github.com:NathanGRomano/message-exchange.git
 
 cd into the directory and install the dependencies
+
     > cd message-exchange
     > npm install && npm shrinkwrap --dev
 
