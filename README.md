@@ -61,9 +61,17 @@ Now lets publish a **quit** event the message queue.  It will be handled by our 
 
 ```javascript
 
-exchange.publish({actor:'employee', target:'job', action:'quit', created:new Date(), content:'work performed'});
+exchange.publish({
+  actor:'employee', 
+  target:'job', 
+  action:'quit', 
+  created:new Date(), 
+  content:'work performed'
+});
 
 ```
+
+You can put anything you like into an event.  I just like to follow a convention similar to what you saw.
 
 # Running Tests
 
