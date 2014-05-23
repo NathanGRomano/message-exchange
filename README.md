@@ -23,11 +23,11 @@ First we get an exchage instance
 
 ```javascript
 
-var exchange = require('message-exchange).make();
+var exchange = require('message-exchange').make();
 
 ```
 
-Lets initialize a model and setup a handler for a "quit" event
+Lets initialize a model and setup a handler for a **quit** event
 
 ```javascript
 
@@ -45,7 +45,7 @@ exchange.handler.on('quit', function (event) {
 
 ```
 
-When we handle a "quit" event we broadcast the messaage to the "human resources" channel.  So let add a listener on that channel so we can relay the information to say a socket.
+When we handle a **quit** event we broadcast the messaage to the **human resources** channel.  So let add a listener on that channel so we can relay the information to say a socket.
 
 ```javascript
 
@@ -57,7 +57,7 @@ exchange.channel('human resources').on('message', function (event) {
 
 ```
 
-Now lets publish a "quit" event the message queue.  It will be handled by our handler and then broadcast on our channel and finally broadcast to our sockets.
+Now lets publish a **quit** event the message queue.  It will be handled by our handler and then broadcast on our channel and finally broadcast to our sockets.
 
 ```javascript
 
