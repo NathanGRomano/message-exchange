@@ -72,6 +72,7 @@ exchange.publish({
 ```
 
 You can put anything you like into an event.  I just like to follow a convention similar to what you saw.
+Make sure you have the **required field "action"** in your event.
 
 # Running Tests
 
