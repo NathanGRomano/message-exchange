@@ -73,7 +73,7 @@ Tests are run using grunt.  You must first globally install the grunt-cli with n
 
     > sudo npm install -g grunt-cli
 
-To run the tets, just run grunt
+To run the tests, just run grunt
 
     > grunt
 
