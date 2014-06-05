@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/NathanGRomano/message-exchange.svg?branch=master)](https://travis-ci.org/NathanGRomano/message-exchange.git)
 [![NPM version](https://badge.fury.io/js/message-exchange.svg)](http://badge.fury.io/js/message-exchange)
 
-The goal of this library is to wrap-up kue and redis and provide a simple interface for building event driven applications.  
+The goal of this library is to wrap-up **[kue](https://www.npmjs.org/package/kue "Kue")** and **[redis] (https://www.npmjs.org/package/redis "Redis")** and provide a simple interface for building event driven applications.  
 At a high-level the library will read messages off of a queue, attempt to handle them, and in some cases publish those events back out onto the pubsub (redis).
 
 # Installation and Environment Setup
@@ -96,4 +96,5 @@ To run the tests, just run grunt
 
 # TODO
 
-Still implementing
+* Support different queues
+* allow for easier configuration of redis
