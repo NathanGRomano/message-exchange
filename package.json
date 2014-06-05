@@ -1,6 +1,6 @@
 {
   "name": "message-exchange",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "integrates redis as a queue and a pubsub by providing an easy mechanism for publishing and handling messages",
   "main": "index.js",
   "scripts": {
