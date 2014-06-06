@@ -1,6 +1,6 @@
 {
   "name": "message-exchange",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "description": "integrates redis as a queue and a pubsub by providing an easy mechanism for publishing and handling messages",
   "main": "index.js",
   "scripts": {
@@ -31,7 +31,8 @@
     "grunt-jasmine-bundle": "^0.2.0",
     "grunt-cli": "^0.1.13",
     "grunt": "^0.4.5",
-    "coffee-script": "^1.7.1"
+    "coffee-script": "^1.7.1",
+    "sandboxed-module": "~0.3.0"
   },
   "dependencies": {
     "redis": "^0.10.3",

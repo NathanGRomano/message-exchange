@@ -2,7 +2,7 @@ EventEmitter = require('events').EventEmitter
 
 describe 'channel', ->
 
-  Given -> @channel = require './../../lib/channel'
+  Given -> @channel = requireSubject 'lib/channel'
   Given -> @name = 'channel'
   Given ->
     @exchange = new EventEmitter

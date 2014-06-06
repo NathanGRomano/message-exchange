@@ -2,31 +2,37 @@ EventEmitter = require('events').EventEmitter
 
 describe 'queue', ->
 
-  Given -> @Queue = require './../../lib/queue'
   Given ->
-    @kue = new EventEmitter
-    @kue.process = (messages, handler) ->
-      @handler = handler
-    @kue.create = (message, data) ->
-      save: =>
-        @handler data, ->
+    @Kue = class Kue extends EventEmitter
+      process: (message, handler) ->
+        @handler = handler
+      create: (message, data) ->
+        save: =>
+          @handler data, ->
+    @Kue.createClient = -> new Kue
+
+  Given -> @client = @Kue.createClient()
+
+  Given -> @Queue = requireSubject 'lib/queue', {
+    'kue': @Kue
+  }
 
   describe '#make', ->
 
-    When -> @res = @Queue.make @kue
+    When -> @res = @Queue.make @client
     Then -> expect(typeof @res).toBe 'object'
     And -> expect(@res instanceof @Queue).toBe true
-    And -> expect(@res.q).toEqual @kue
+    And -> expect(@res.q).toEqual @client
 
   context 'an instance', ->
 
-    Given -> @instance = @Queue.make @kue
+    Given -> @instance = @Queue.make @client
     Given -> @message = data: action: 'action'
 
     describe '#send', ->
-      Given -> spyOn(@kue,['create']).andCallThrough()
+      Given -> spyOn(@client,['create']).andCallThrough()
       When -> @instance.send @message
-      Then -> expect(@kue.create).toHaveBeenCalledWith 'message', @message
+      Then -> expect(@client.create).toHaveBeenCalledWith 'message', @message
 
     describe '.q', ->
 
