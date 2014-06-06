@@ -92,7 +92,7 @@ Make sure you have the **required field "action"** in your event.
 
 This is wheere we publish, handle, and propagate messages.
 
-### #make
+### #make()
 
 ```javascript
 
@@ -100,7 +100,7 @@ var exchange = require('message-exchange').make();
 
 ```
 
-### #make queue:Queue, pubsub:Pubsub, handler:EventEmitter
+### #make(queue:Queue, pubsub:Pubsub, handler:EventEmitter)
 
 ```javascript
 
@@ -114,7 +114,7 @@ var exchange = messageExchange.make(queue, pubsub, handler);
 
 ```
 
-### #publish message:Object
+### #publish(message:Object)
 
 Puts the message onto the `Queue`.
 
@@ -131,7 +131,7 @@ exchange.publish( message );
 
 ```
 
-### #publish message:Object, channel:String
+### #publish(message:Object, channel:String)
 
 Puts the message onto the `PubSub` with the `channel` being `"everyone"`.
 
@@ -148,7 +148,7 @@ exchange.publish( message, 'everyone' );
 
 ```
 
-### #channel channel:String
+### #channel(channel:String)
 
 Gets a channel instance, if it doesn't already exist it will subscribe to that
 channel.
