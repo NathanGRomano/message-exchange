@@ -31,6 +31,7 @@ First we get an exchage instance
 
 ```javascript
 
+var events = require('events');
 var exchange = require('message-exchange').make();
 
 ```
@@ -41,7 +42,8 @@ Lets initialize a model and setup a handler for a **quit** event
 
 var employeeModel = {hired: new Date()}:
 
-exchange.handler.on('quit', function (event) {
+var handler = new events.EventEmitter()
+handler.on('quit', function (event) {
 
   // handle the event
   employeeModel.quit = event.created;
@@ -50,6 +52,8 @@ exchange.handler.on('quit', function (event) {
   exchange.channel('human resources').publish(event);
 
 });
+
+exchange.handler(handler);
 
 ```
 
@@ -82,6 +86,166 @@ exchange.publish({
 You can put anything you like into an event.  I just like to follow a convention similar to what you saw.
 Make sure you have the **required field "action"** in your event.
 
+# API Documentation
+
+## Exchange
+
+This is wheere we publish, handle, and propagate messages.
+
+### #make
+
+```javascript
+
+var exchange = require('message-exchange').make();
+
+```
+
+### #make queue:Queue, pubsub:Pubsub, handler:EventEmitter
+
+```javascript
+
+var messageExchange = require('message-exchange');
+
+var queue = messageExchange.Queue.make();
+var pubsub = messageExchange.PubSub.make();
+var handler = new EventEmitter();
+
+var exchange = messageExchange.make(queue, pubsub, handler);
+
+```
+
+### #publish message:Object
+
+Puts the message onto the `Queue`.
+
+```javascript
+
+var message = {
+  actor: 'Me',
+  action: 'shout',
+  content: 'Hello',
+  target: 'You'
+};
+
+exchange.publish( message );
+
+```
+
+### #publish message:Object, channel:String
+
+Puts the message onto the `PubSub` with the `channel` being `"everyone"`.
+
+```javascript
+
+var message = {
+  actor: 'Me',
+  action: 'shout',
+  content: 'Hello',
+  target: 'You'
+};
+
+exchange.publish( message, 'everyone' );
+
+```
+
+### #channel channel:String
+
+Gets a channel instance, if it doesn't already exist it will subscribe to that
+channel.
+
+```javascript 
+
+var channel = exchange.channel('everyone');
+channel.on('message', function (message) {
+  //do somethign
+});
+
+```
+
+### #queue()
+
+Gets the `Queue` instance.
+
+```javascript
+
+var queue = exchange.queue();
+queue.send(message);
+
+```
+
+### #queue(queue:Queue)
+
+Sets the `Queue` instance.
+
+```javascript
+
+var kue = require('kue');
+var queue = messageExchange.Queue.make(kue.createClient());
+
+exchange.queue(queue);
+
+```
+
+### #pubsub()
+
+Gets the pubsub instance.
+
+```javascript
+
+var pubsub = exchange.pubsub();
+pubsub.send(message, 'everyone');
+
+```
+
+### #pubsub(pubsub:PubSub)
+
+Sets the pubsub instance.
+
+```javascript
+
+var redis = require('redis');
+
+var pub = redis.createClient();
+var sub = redis.createClient();
+
+var pubsub = messageExchange.PubSub.make(pub, sub);
+
+exchange.pubsub(pubsub);
+
+```
+
+### #handler()
+
+Gets the handler which is an `EventEmitter`.
+
+```javascript
+
+var handler = exchange.handler();
+handler.on('some message', function (message, exchange) {
+  // do something
+  exchange.channel(message.target).publish(message);
+});
+
+```
+
+### #handler(handler:EventEmitter)
+
+Sets the handler.
+
+```javascript
+
+var events = require('events');
+
+var handler = new events.EventEmitter;
+handler.on('some message', function (message, exchange) {
+  // do something
+  exchange.channel(message.target).publish(message);
+});
+
+exchange.handler(handler);
+
+```
+
 # Running Tests
 
 ## Unit Tests
@@ -97,4 +261,4 @@ To run the tests, just run grunt
 # TODO
 
 * Support different queues
-* allow for easier configuration of redis
+* ~~~allow for easier configuration of redis~~~
